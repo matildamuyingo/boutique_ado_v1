@@ -31,5 +31,5 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     """
     if created:
         UserProfile.objects.create(user=instance)
-        # Existing users: jusst save the profile
-        instance.userprofile.save()
+    # Existing users: jusst save the profile
+    instance.userprofile.save()
