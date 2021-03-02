@@ -26,7 +26,7 @@ SECRET_KEY = 'rx1__m_a!%ne=xqtn)9m)6#lx4%j+9!cb5ws9svay!#ett7fa)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['matilda-boutique-ado.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -121,16 +121,17 @@ WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-# }
-
-DATABASES = {
-    'default': dj_database_url.parse('postgres://iulrfjvszlfedx:43aa68defe99da26fc74b70f8882595798ca67d964e44f356cf5c6e307132a4b@ec2-54-155-35-88.eu-west-1.compute.amazonaws.com:5432/dfq347csjhngra')
-}
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
